@@ -17,7 +17,7 @@ $(function () {
                 pageSize:pageSize
             },
             success:function (data) {
-                console.log(data);
+                // console.log(data);
                 var html = template("tpl", data);
                 $('tbody').html(html);
 
@@ -33,10 +33,32 @@ $(function () {
                         render();
                     }
                 });
-
-
             }
         })
     }
     render();
+
+
+    $('tbody').on('click','.btn',function () {
+        $('#userModal').modal('show');
+        var id = $(this).parent().data("id");
+        var isDelete = $(this).parent().data("isDelete");
+        isDelete = isDelete === 1 ? 0 : 1;
+        $('.btn_confirm').off().on('click',function () {
+            $.ajax({
+                type:'post',
+                url:'/user/updateUser',
+                data:{
+                    id:id,
+                    isDelete:isDelete
+                },
+                success:function (data) {
+                    $('#userModal').modal('hide');
+                    render();
+                }
+            })
+        })
+    });
+
+
 });
