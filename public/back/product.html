@@ -24,7 +24,7 @@
         <a href="javascript:;"><span class="glyphicon glyphicon-list"></span> 分类管理</a>
         <div class="child" style="display: none">
           <a href="first.html">一级分类</a>
-          <a href="second.html">二级分类</a>
+          <a class="now" href="second.html">二级分类</a>
         </div>
       </li>
       <li><a href="product.html"><span class="glyphicon glyphicon-tags"></span> 商品管理</a></li>
@@ -39,10 +39,33 @@
   <div class="container-fluid">
     <ol class="breadcrumb">
       <li><a href="#">管理系统</a></li>
-      <li class="active">商品管理</li>
+      <li><a href="#">分类管理</a></li>
+      <li class="active">二级分类</li>
     </ol>
     <div class="lt_content">
+      <button class="btn_add btn btn-default mb20">添加商品</button>
+      <table class="table table-bordered table-hover">
+        <thead>
+        <tr>
+          <td width="5%">序号</td>
+          <td width="25%">商品名称</td>
+          <td width="25%">商品描述</td>
+          <td width="10%">商品库存</td>
+          <td width="10%">商品尺寸</td>
+          <td width="10%">商品状态</td>
+          <td width="15%">操作</td>
+        </tr>
+        </thead>
+        <tbody>
+        <!--挖坑填数据-->
 
+        </tbody>
+      </table>
+      <div class="text-right">
+        <ul id="pagination">
+          <!--填分页数据-->
+        </ul>
+      </div>
     </div>
   </div>
 </div>
@@ -64,10 +87,126 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+<div class="modal fade" tabindex="-1"  id="addModal">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">添加商品</h4>
+      </div>
+      <div class="modal-body">
+        <form id="form">
+          <div class="form-group">
+            <div class="dropdown">
+              <span>二级分类</span>
+              <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                <span class="dropdown-text">请选择</span>
+                <!--这个可以用来传输数据，并且不会显示出来。-->
+                <input type="hidden" name="brandId" id="brandId">
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <!--挖个坑-->
+              </ul>
+            </div>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" id="proName" name="proName" placeholder="请输入商品名称">
+          </div>
+          <div class="form-group">
+            <textarea type="text" class="form-control" id="proDesc" name="proDesc" placeholder="请输入商品描述"></textarea>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" id="num" name="num" placeholder="请输入商品库存">
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" id="oldPrice" name="oldPrice" placeholder="请输入商品原价">
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" id="price" name="price" placeholder="请输入商品价格">
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" id="size" name="size" placeholder="请输入商品尺寸">
+          </div>
+          <div class="form-group">
+            <div class="fileupload_box">
+              <button class="btn btn-default">上传图片</button>
+              <input id="fileupload" type="file" multiple name="pic1" class="btn btn-default" data-url="/category/addSecondCategoryPic">
+            </div>
+
+          </div>
+
+          <div class="form-group img_box">
+            <!--<img src="img/none.png" width="100" height="100" alt="">-->
+            <!--<img src="img/none.png" width="100" height="100" alt="">-->
+            <!--<img src="img/none.png" width="100" height="100" alt="">-->
+            <input type="hidden" name="brandLogo" id="brandLogo">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="submit" class="btn btn_confirm btn-primary">确定</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>
+<div class="modal fade" tabindex="-1" id="proModal">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+            aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">温馨提示</h4>
+      </div>
+      <div class="modal-body">
+        <p class="text-danger"><span class="glyphicon glyphicon-info-sign"></span> 您确定要切换该商品状态么？</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn_confirm btn-primary">确定</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>
+<script type="text/html" id="tpl">
+  {{each rows v i}}
+    <tr>
+      <td>{{(page - 1) * size + i + 1}}</td>
+      <td>{{v.proName}}</td>
+      <td>{{v.proDesc}}</td>
+      <td>{{v.num}}</td>
+      <td>{{v.size}}</td>
+      <td>{{v.statu === 1?"已上架":"已下架"}}</td>
+      <td data-id="{{v.id}}" data-statu="{{v.statu === 1?0:1}}">
+        {{if(v.statu===0)}}
+        <button class="btn btn-success">上架</button>
+        {{/if}}
+        {{if(v.statu===1)}}
+        <button class="btn btn-danger">下架</button>
+        {{/if}}
+      </td>
+    </tr>
+  {{/each}}
+</script>
+<script type="text/html" id="tpl2">
+  {{each rows v i}}
+    <li><a href="javascript:;" data-id="{{v.id}}">{{v.brandName}}</a></li>
+  {{/each}}
+</script>
+
+
+
 <script src="lib/jquery/jquery.js"></script>
-<script src="lib/bootstrap/js/bootstrap.js" ></script>
+<script src="lib/jquery-fileupload/jquery.ui.widget.js"></script>
+<script src="lib/jquery-fileupload/jquery.fileupload.js"></script>
+<script src="lib/bootstrap/js/bootstrap.js"></script>
 <script src="lib/bootstrap-validator/js/bootstrapValidator.min.js"></script>
+<script src="lib/bootstrap-paginator/bootstrap-paginator.min.js"></script>
 <script src="lib/nprogress/nprogress.js"></script>
 <script src="js/common.js"></script>
+<script src="lib/artTemplate/template-web.js"></script>
+<script src="js/product.js"></script>
 </body>
 </html>

@@ -56,6 +56,8 @@ $(function () {
 
         //获取到当前a标签的自定义属性，data-id,修改隐藏域的value值
         $("#categoryId").val($(this).data("id"));
+        //改成通过状态
+        $form.data("bootstrapValidator").updateStatus("categoryId", "VALID");
     });
 
     //初始文件上传
@@ -122,6 +124,8 @@ $(function () {
                 // console.log(data);
                 if(data.success){
                     $("#addModal").modal("hide");
+                    currentPage = 1;
+                    render();
                     $form.data("bootstrapValidator").resetForm();
                     $form[0].reset();
                     $(".dropdown-text").text("请选择一级分类");
