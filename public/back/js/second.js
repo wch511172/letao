@@ -128,7 +128,7 @@ $(function () {
                     render();
                     $form.data("bootstrapValidator").resetForm();
                     $form[0].reset();
-                    $(".dropdown-text").text("请选择一级分类");
+                    $(".dropdown-text").text("请选择");
                     $(".img_box img").attr("src", "img/none.png");
 
                 }

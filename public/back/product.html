@@ -172,15 +172,16 @@
 </div>
 <script type="text/html" id="tpl">
   {{each rows v i}}
-    <tr>
+    <tr data-id="{{v.id}}"  data-proName="{{v.proName}}" data-oldPrice="{{v.oldPrcie}}"
+        data-price="{{v.price}}" data-proDesc="{{v.proDesc}}" data-size="{{v.size}}" data-num="{{v.num}}" data-brandId="{{v.brandId}}">
       <td>{{(page - 1) * size + i + 1}}</td>
       <td>{{v.proName}}</td>
       <td>{{v.proDesc}}</td>
       <td>{{v.num}}</td>
       <td>{{v.size}}</td>
       <td>{{v.statu === 1?"已上架":"已下架"}}</td>
-      <td data-id="{{v.id}}" data-statu="{{v.statu === 1?0:1}}">
-        {{if(v.statu===0)}}
+      <td data-statu="{{v.statu}}">
+        {{if(v.statu===2)}}
         <button class="btn btn-success">上架</button>
         {{/if}}
         {{if(v.statu===1)}}

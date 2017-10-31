@@ -64,6 +64,7 @@ $(function () {
     });
 
     var $form = $("#form");
+    console.log($form.serialize());
     $form.bootstrapValidator({
         //默认不校验的配置
         excluded:[],
@@ -153,7 +154,7 @@ $(function () {
             url:"/product/addProduct",
             data:$form.serialize(),
             success:function (data) {
-                // console.log(data);
+                console.log(data);
                 if(data.success){
                     $("#addModal").modal("hide");
                     currentPage = 1;
@@ -168,20 +169,39 @@ $(function () {
     });
 
     //更改商品上架状态
-    // $("tbody").on("click",".btn",function () {
-    //     $('#proModal').modal('show');
-    //     var id = $(this).parent().data("id");
-    //     var statu = $(this).parent().data("statu");
-    //     $.ajax({
-    //         type:"post",
-    //         url:"/product/updateProduct",
-    //         data:{
-    //             id:id,
-    //             statu:statu
-    //         },
-    //         success:function (data) {
-    //             console.log(data);
-    //         }
-    //     });
-    // })
+    $("tbody").on("click",".btn",function () {
+        $('#proModal').modal('show');
+        var id = $(this).closest("tr").data("id");
+        var statu = $(this).parent().data("statu");
+        statu = statu === 1?2:1;
+        var proName = $(this).closest("tr").data("proName");
+        var oldPrice = $(this).closest("tr").data("oldPrice");
+        var price = $(this).closest("tr").data("price");
+        var proDesc = $(this).closest("tr").data("proDesc");
+        var size = $(this).closest("tr").data("size");
+        var num = $(this).closest("tr").data("num");
+        var brandId = $(this).closest("tr").data("brandId");
+        $('.btn_confirm').off().on('click',function () {
+            $.ajax({
+                type: "post",
+                url: "/product/updateProduct",
+                data: {
+                    id:id,
+                    statu:statu,
+                    proName:proName,
+                    oldPrice:oldPrice,
+                    price:price,
+                    proDesc:proDesc,
+                    size:size,
+                    num:num,
+                    brandId:brandId
+                },
+                success: function (data) {
+                    // console.log(data);
+                    $('#proModal').modal('hide');
+                    render();
+                }
+            });
+        });
+    })
 });
