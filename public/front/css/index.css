@@ -1,0 +1,30 @@
+.lt_nav {
+  padding: 10px;
+}
+
+.lt_nav li{
+  width: 33.33%;
+  float: left;
+}
+
+.lt_product{
+  padding: 10px;
+}
+.lt_product .item{
+  width: 48%;
+  float: left;
+  border:1px solid #ccc;
+  display: block;
+  padding: 10px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+.lt_product .item:nth-child(odd){
+  margin-right: 4%;
+}
+.lt_product .item span:first-child{
+  color: red;
+}
+.lt_product .item span:last-child{
+  text-decoration: line-through;
+}
