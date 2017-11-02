@@ -4,6 +4,7 @@
 $(function () {
     var currentPage = 1;
     var pageSize = 5;
+    var imgArray = [];
     function render() {
         $.ajax({
             type:"get",
@@ -57,9 +58,21 @@ $(function () {
         dataType:"json",
         //当文件上传成功时，会执行这个回调函数
         done:function (e, data) {
+            console.log(data.result.picAddr);
             //获取文件上传结果
             // console.log(data);
-            $(".img_box").append(' <img src="' + data.result.picAddr + '" width="100" height="100" alt="">')
+            //图片上传成功之后，需要把图片显示出来。直接给img_box添加一个图片
+            $(".img_box").append('<img src="' + data.result.picAddr + '" width="100" height="100" alt="">');
+
+            //数组中存储了上传的所有的图片。
+            imgArray.push(data.result);
+
+            //判断数组的长度，如果长度是3了，就可以修改productLogo的校验状态
+            if (imgArray.length === 3) {
+                $form.data("bootstrapValidator").updateStatus("productLogo", "VALID");
+            } else {
+                $form.data("bootstrapValidator").updateStatus("productLogo", "INVALID");
+            }
         }
     });
 
@@ -143,16 +156,29 @@ $(function () {
                     }
                 }
             },
+            productLogo: {
+                validators: {
+                    notEmpty: {
+                        message: "请上传3张商品图片"
+                    }
+                }
+            }
         }
     });
 
 
     $form.on("success.form.bv",function (e) {
         e.preventDefault();
+        var param = $form.serialize();
+        //还需要拼接3张图片的地址
+        param += "&picName1="+imgArray[0].picName+"&picAddr1="+imgArray[0].picAddr;
+        param += "&picName2="+imgArray[1].picName+"&picAddr2="+imgArray[1].picAddr;
+        param += "&picName3="+imgArray[2].picName+"&picAddr3="+imgArray[2].picAddr;
+        // console.log(param);
         $.ajax({
             type:"post",
             url:"/product/addProduct",
-            data:$form.serialize(),
+            data:param,
             success:function (data) {
                 console.log(data);
                 if(data.success){
