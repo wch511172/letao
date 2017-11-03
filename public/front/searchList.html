@@ -16,7 +16,7 @@
   <div class="lt_header">
     <a href="javascript:history.go(-1);" class="icon_left"><span class="fa fa-chevron-left"></span></a>
     <h4>搜索列表</h4>
-    <a href="index.html" class="icon_right"><span class="fa fa-search"></span></a>
+    <!--<a href="index.html" class="icon_right"><span class="fa fa-search"></span></a>-->
   </div>
   <div class="lt_content">
       <div class="mui-scroll-wrapper">
@@ -80,7 +80,7 @@
   <p>没有搜索到相关的商品</p>
   {{/if}}
   {{each data v i}}
-  <a href="#" class="item">
+  <a href="product.html?productId={{v.id}}" class="item">
     <img src="{{v.pic[0].picAddr}}" alt="">
     <p class="mui-ellipsis-2">{{v.proName}}</p>
     <p>

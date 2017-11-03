@@ -1,0 +1,35 @@
+.lt_cart{
+  width: 100%;
+  max-width: 640px;
+  height: 55px;
+  background-color: #eee;
+  padding: 10px;
+  position: fixed;
+  bottom: 0;
+}
+
+.lt_content .lt_item{
+  padding: 10px;
+  border-top: 1px solid #ccc;
+}
+
+.lt_content .lt_item .price{
+  font-size: 20px;
+  color: red;
+}
+.lt_content .lt_item .oldPrice{
+  font-size: 12px;
+  text-decoration: line-through;
+  color: #666;
+}
+.lt_content .lt_item .size{
+  border: 1px solid #ccc;
+  background-color: #eee;
+  font-size: 12px;
+  line-height: 36px;
+  padding: 5px;
+}
+.lt_content .lt_item .info{
+  font-size: 14px;
+  color: #666;
+}
