@@ -36,6 +36,14 @@ $(".search_btn").on("click",function () {
    var key = $(".search_text").val().trim();
     //1. 先从缓冲中把数组获取到
     var arr = getHistory();
+    //如果数组原来有 就删除原有的数据
+    if(arr.indexOf(key) > -1){
+        arr.splice(arr.indexOf(key),1);
+    }
+    //如果超过10条数据 就删除最后一条
+    if(arr.length >= 10){
+        arr.pop();
+    }
     arr.unshift(key);
     localStorage.setItem("lt_search_history",JSON.stringify(arr));
     // render();

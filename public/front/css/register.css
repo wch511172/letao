@@ -1,0 +1,19 @@
+.lt_content{
+  padding: 10px;
+}
+
+.lt_content .code input{
+  width: 60%;
+}
+.lt_content .code .btn_getcode{
+  width: 35%;
+  padding: 0;
+  height: 40px;
+  line-height: 40px;
+  font-size: 17px;
+}
+
+.lt_content .code .disabled {
+  background-color: #999;
+  border-color: #999;
+}

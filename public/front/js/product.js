@@ -33,3 +33,38 @@ $.ajax({
         mui(".mui-numbox").numbox();
     }
 });
+//尺码选择功能
+$(".mui-scroll").on("click",".size",function () {
+    $(this).addClass("now").siblings().removeClass("now");
+});
+
+//添加到购物车功能
+$(".btn_add_cart").on("click",function () {
+    // console.log("111");
+    var size = $(".size.now").html();
+    var num = $(".mui-numbox-input").val();
+    if(!size){
+        mui.toast("请选择尺码");
+        return false;
+    }
+    $.ajax({
+        type:"post",
+        url:"/cart/addCart",
+        data:{
+            productId:id,
+            size:size,
+            num:num
+        },
+        success:function (data) {
+            console.log(data);
+            if(data.success){
+                mui.toast("添加成功")
+            }
+            if(data.error === 400){
+                // console.log(location.href);
+                location.href = "login.html?retUrl=" + location.href;
+            }
+        }
+    });
+
+});

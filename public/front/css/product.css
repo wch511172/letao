@@ -29,6 +29,9 @@
   line-height: 36px;
   padding: 5px;
 }
+.lt_content .lt_item .size.now{
+  background-color: #069;
+}
 .lt_content .lt_item .info{
   font-size: 14px;
   color: #666;
